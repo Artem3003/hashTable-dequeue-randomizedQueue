@@ -2,62 +2,71 @@ using System;
 
 namespace HashTableDequeRandomizedQueue
 {
-    class DequeList<Item> : IIterator<Item>
-    {
+    class DequeList<Item> : IIterator<Item> {
         private LinkedList<Item> deque;
         private LinkedListNode<Item> currentNode;
-        public bool HasNext => throw new ArgumentException();
+        public bool HasNext => currentNode != null;
 
         // construct an empty deque
         public DequeList()
         {
+            this.deque = new LinkedList<Item>();
         }
 
         // is the deque empty?
         public bool IsEmpty()
         {
-            throw new ArgumentException();
+            return deque.Count == 0;
         }
 
         // return the number of items on the deque
         public int Size()
         {
-            throw new ArgumentException();
+            return deque.Count;
         }
 
         // add the item to the front
         public void AddFirst(Item item)
         {
-            throw new ArgumentException();
+            deque.AddFirst(item);
         }
 
         // add the item to the back
         public void AddLast(Item item)
         {
-            throw new ArgumentException();
+            deque.AddLast(item);
         }
 
         // remove and return the item from the front
         public Item RemoveFirst()
         {
-            throw new ArgumentException();
+            Item removed = deque.First.Value;
+            deque.RemoveFirst();
+            return removed;
         }
 
         // remove and return the item from the back
         public Item RemoveLast()
         {
-           throw new ArgumentException();
+            Item removed = deque.Last.Value;
+            deque.RemoveLast();
+            return removed;
         }
 
         // return an iterator over items in order from front to back
         public IEnumerator<Item> Iterator()
         {
-            throw new ArgumentException();
+            return deque.GetEnumerator();
         }
 
         public Item MoveNext()
         {
-            throw new ArgumentException();
+            LinkedListNode<Item> node = currentNode;
+            if (HasNext)
+            {
+                currentNode = currentNode.Next;
+            }
+            return node.Value;
         }
     }
 }
