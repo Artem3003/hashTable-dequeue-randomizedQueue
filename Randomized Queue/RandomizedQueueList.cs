@@ -6,56 +6,67 @@ namespace HashTableDequeRandomizedQueue
     class RandomizedQueueList<Item> : IEnumerable<Item> 
     {
         private LinkedList<Item> randomizedQueue;
-
+        public Random random;
         // construct an empty randomized queue
         public RandomizedQueueList()
         {
+            this.randomizedQueue = new LinkedList<Item>();
+            random = new Random();
         }
 
         // is the randomized queue empty?
         public bool IsEmpty()
         {
-            throw new ArgumentException();
+            return randomizedQueue.Count == 0;
         }
 
         // return the number of items on the randomized queue
         public int Size()
         {
-            throw new ArgumentException();
+            return randomizedQueue.Count;
         }
 
         // add the item
         public void Enqueue(Item item)
         {
-            throw new ArgumentException();
+            randomizedQueue.AddLast(item);
         }
 
         // remove and return a random item
         public Item Dequeue()
         {
-            throw new ArgumentException();
+            Item deletedNode = Sample();
+            randomizedQueue.Remove(deletedNode);
+            return deletedNode;
         }
 
         // return a random item (but do not remove it)
         public Item Sample()
         {
-            throw new ArgumentException();
+            int index = random.Next(0, randomizedQueue.Count);
+            LinkedListNode<Item> node = randomizedQueue.First;
+
+            for (int i = 0; i < index; i++)
+            {
+                node = node.Next;
+            }
+            return node.Value;;
         }
 
         // return an independent iterator over items in random order
         public IEnumerator<Item> Iterator()
         {
-            throw new ArgumentException();
+            return GetEnumerator();
         }
 
         public IEnumerator<Item> GetEnumerator()
         {
-            throw new ArgumentException();
+            return randomizedQueue.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new ArgumentException();
+            return GetEnumerator();
         }
     }
 }
